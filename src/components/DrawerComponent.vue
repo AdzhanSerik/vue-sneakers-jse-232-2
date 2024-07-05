@@ -17,13 +17,13 @@
           <div class="flex items-end gap-2">
             <span>Итого:</span>
             <div class="flex-1 border-b border-dashed" />
-            <span class="font-bold">1000 руб.</span>
+            <span class="font-bold">1000 тенге</span>
           </div>
 
           <div class="flex items-end gap-2">
             <span>Налог 5%:</span>
             <div class="flex-1 border-b border-dashed" />
-            <span class="font-bold">50 руб.</span>
+            <span class="font-bold">50 тенге</span>
           </div>
         </div>
 
