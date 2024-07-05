@@ -1,9 +1,11 @@
 <script setup>
 import Header from './components/HeaderComponent.vue'
 import Sneaker from './components/SneakerSingle.vue'
+import Drawer from './components/DrawerComponent.vue'
 </script>
 
 <template>
+  <Drawer />
   <div class="bg-white m-20 shadow-xl rounded-xl">
     <Header />
     <h2 class="p-10 text-2xl font-bold">Все кроссовки</h2>
