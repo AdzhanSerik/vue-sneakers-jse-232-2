@@ -18,7 +18,7 @@ defineProps({
       :src="isFavourite ? '/like-2.svg' : '/like-1.svg'"
       alt="Like"
     />
-    <img :src="image" alt="Sneaker" />
+    <img class="w-52 h-52 object-contain" :src="image" alt="Sneaker" />
     <p>{{ title }}</p>
     <div class="flex justify-between items-center">
       <div class="flex flex-col">
