@@ -1,6 +1,7 @@
 <template>
   <div class="flex items-center gap-3">
     <svg
+      @click="targetDrawer"
       class="opacity-40 rotate-180 transition hover:opacity-100 hover:rotate-0"
       width="13"
       height="13"
@@ -26,3 +27,8 @@
     <h2 class="text-2xl font-bold text-gray-700">Корзина</h2>
   </div>
 </template>
+
+<script setup>
+import { inject } from 'vue'
+const targetDrawer = inject('targetDrawer')
+</script>

@@ -1,34 +1,57 @@
 <script setup>
 import Header from './components/HeaderComponent.vue'
-// import Drawer from './components/DrawerComponent.vue'
+import Drawer from './components/DrawerComponent.vue'
 import CardList from './components/CardList.vue'
 import axios from 'axios'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, reactive, provide } from 'vue'
 
 const items = ref([])
-const sortBy = ref('')
+const isOpenDrawer = ref(false)
 
-watch(sortBy, async () => {
-  const { data } = await axios.get(
-    'https://269b3b45e08bcd1a.mokky.dev/items?sortBy=' + sortBy.value
-  )
-  items.value = data
-})
-
-const onChangeSelect = (event) => {
-  sortBy.value = event.target.value
+const targetDrawer = () => {
+  isOpenDrawer.value = !isOpenDrawer.value
 }
 
-onMounted(async () => {
-  const { data } = await axios.get('https://269b3b45e08bcd1a.mokky.dev/items')
-  items.value = data
+provide('targetDrawer', targetDrawer)
+
+const filters = reactive({
+  sortBy: 'title',
+  searchBy: ''
 })
+
+const fetchItems = async () => {
+  const params = {
+    sortBy: filters.sortBy
+  }
+  if (filters.searchBy) {
+    params.title = filters.searchBy
+  }
+  const { data } = await axios.get(`https://269b3b45e08bcd1a.mokky.dev/items`, {
+    params
+  })
+  items.value = data.map((sneaker) => ({
+    ...sneaker,
+    isFavourite: false
+  }))
+}
+
+const fetchFavorites = async () => {}
+
+onMounted(fetchItems)
+watch(filters, fetchItems)
+
+const onChangeSelect = (event) => {
+  filters.sortBy = event.target.value
+}
+const onChangeInput = (event) => {
+  filters.searchBy = `*${event.target.value}*`
+}
 </script>
 
 <template>
-  <!-- <Drawer /> -->
+  <Drawer :targetDrawer="targetDrawer" v-if="isOpenDrawer" />
   <div class="bg-white m-20 shadow-xl rounded-xl">
-    <Header />
+    <Header :targetDrawer="targetDrawer" />
     <div class="flex justify-between items-center mb-10 p-10">
       <div>
         <h1 class="text-3xl font-bold">Все кроссовки</h1>
@@ -45,6 +68,7 @@ onMounted(async () => {
         </select>
         <div class="relative">
           <input
+            @input="onChangeInput"
             type="text"
             class="border border-gray-200 rounded-md py-2 pl-10 pr-4 focus:outline-none focus:border-gray-400"
             placeholder="Поиск..."

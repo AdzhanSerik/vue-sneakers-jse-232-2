@@ -8,7 +8,10 @@
       </div>
     </div>
     <ul class="flex gap-10 items-center">
-      <li class="flex gap-2 items-center transition hover:font-bold cursor-pointer">
+      <li
+        @click="targetDrawer"
+        class="flex gap-2 items-center transition hover:font-bold cursor-pointer"
+      >
         <img src="/cart.svg" alt="" />
         <b class="text-gray-500">17000 тенге</b>
       </li>
@@ -23,3 +26,9 @@
     </ul>
   </header>
 </template>
+
+<script setup>
+defineProps({
+  targetDrawer: Function
+})
+</script>

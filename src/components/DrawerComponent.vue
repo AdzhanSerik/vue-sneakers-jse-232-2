@@ -1,5 +1,8 @@
 <template>
-  <div class="fixed top-0 left-0 w-full h-full bg-black z-10 opacity-50"></div>
+  <div
+    @click="targetDrawer"
+    class="fixed top-0 left-0 w-full h-full bg-black z-10 opacity-50"
+  ></div>
   <div class="fixed top-0 right-0 h-full w-96 bg-white z-20 p-8 overflow-auto">
     <Header />
     <div class="flex flex-col h-full mt-5">
@@ -41,4 +44,8 @@
 <script setup>
 import Header from './HeaderCart.vue'
 import CartItem from './CartItem.vue'
+
+defineProps({
+  targetDrawer: Function
+})
 </script>
