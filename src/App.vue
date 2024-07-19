@@ -14,8 +14,19 @@ const targetDrawer = () => {
 
 provide('targetDrawer', targetDrawer)
 
+const addToFavorite = (id) => {
+  items.value = items.value.map((item) => {
+    if (item.id === id) {
+      return { ...item, isFavourite: !item.isFavourite }
+    }
+    return item
+  })
+}
+
+provide('addToFavorite', addToFavorite)
+
 const filters = reactive({
-  sortBy: 'title',
+  sortBy: 'id',
   searchBy: ''
 })
 
@@ -31,13 +42,27 @@ const fetchItems = async () => {
   })
   items.value = data.map((sneaker) => ({
     ...sneaker,
-    isFavourite: false
+    isFavourite: false,
+    isAdded: false
   }))
 }
 
-const fetchFavorites = async () => {}
+const fetchFavorites = async () => {
+  const { data: favourites } = await axios.get(`https://269b3b45e08bcd1a.mokky.dev/favorites`)
+  items.value = items.value.map((item) => {
+    const favourite = favourites.find((fav) => item.id === fav.sneakerId)
+    if (favourite) {
+      return { ...item, isFavourite: true }
+    }
+    return item
+  })
+}
 
-onMounted(fetchItems)
+onMounted(async () => {
+  await fetchItems()
+  await fetchFavorites()
+})
+
 watch(filters, fetchItems)
 
 const onChangeSelect = (event) => {
