@@ -14,8 +14,22 @@ const targetDrawer = () => {
 
 provide('targetDrawer', targetDrawer)
 
-const addToFavorite = (item) => {
-  console.log(item)
+const addToFavorite = async (item) => {
+  try {
+    if (!item.isFavorite) {
+      const obj = {
+        sneakerId: item.id
+      }
+      const { data } = await axios.post(`https://269b3b45e08bcd1a.mokky.dev/favorites`, obj)
+      console.log(data)
+      item.isFavorite = true
+    } else {
+      await axios.delete(`https://269b3b45e08bcd1a.mokky.dev/favorites/${item.favoriteId}`)
+      item.isFavorite = false
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const filters = reactive({
@@ -35,7 +49,7 @@ const fetchItems = async () => {
   })
   items.value = data.map((sneaker) => ({
     ...sneaker,
-    isFavourite: false,
+    isFavorite: false,
     isAdded: false
   }))
 }
@@ -45,10 +59,11 @@ const fetchFavorites = async () => {
   items.value = items.value.map((item) => {
     const favourite = favourites.find((fav) => item.id === fav.sneakerId)
     if (favourite) {
-      return { ...item, isFavourite: true }
+      return { ...item, isFavorite: true, favoriteId: favourite.id }
     }
     return item
   })
+  console.log(items.value)
 }
 
 onMounted(async () => {

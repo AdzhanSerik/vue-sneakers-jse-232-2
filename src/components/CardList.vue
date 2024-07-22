@@ -22,7 +22,7 @@ const onClickAdd = () => {
       :image="item.imageUrl"
       :price="item.price"
       :isAdded="item.isAdded"
-      :isFavourite="item.isFavourite"
+      :isFavorite="item.isFavorite"
       :onClickAdd="onClickAdd"
       :onClickFavorite="() => emit('addToFavorite', item)"
     />
