@@ -1,23 +1,16 @@
 <script setup>
 import Sneaker from './SneakerSingle.vue'
-import { inject } from 'vue'
 
 defineProps({
   items: Array
 })
 
+const emit = defineEmits(['addToFavorite'])
+
 const onClickAdd = () => {
   alert('Добавлено нахой!')
 }
-
-const addToFavorite = inject('addToFavorite')
-const onClickFavorite = (id) => {
-  addToFavorite(id)
-
-  alert(id)
-}
 </script>
-
 
 <template>
   <div class="p-10 grid grid-cols-4 gap-5">
@@ -31,7 +24,7 @@ const onClickFavorite = (id) => {
       :isAdded="item.isAdded"
       :isFavourite="item.isFavourite"
       :onClickAdd="onClickAdd"
-      :onClickFavorite="onClickFavorite"
+      :onClickFavorite="() => emit('addToFavorite', item)"
     />
   </div>
 </template>

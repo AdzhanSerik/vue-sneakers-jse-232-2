@@ -14,16 +14,9 @@ const targetDrawer = () => {
 
 provide('targetDrawer', targetDrawer)
 
-const addToFavorite = (id) => {
-  items.value = items.value.map((item) => {
-    if (item.id === id) {
-      return { ...item, isFavourite: !item.isFavourite }
-    }
-    return item
-  })
+const addToFavorite = (item) => {
+  console.log(item)
 }
-
-provide('addToFavorite', addToFavorite)
 
 const filters = reactive({
   sortBy: 'id',
@@ -105,7 +98,7 @@ const onChangeInput = (event) => {
       </div>
     </div>
 
-    <CardList :items="items" />
+    <CardList :items="items" @addToFavorite="addToFavorite" />
   </div>
 </template>
 
