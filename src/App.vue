@@ -23,6 +23,7 @@ const addToFavorite = async (item) => {
       const { data } = await axios.post(`https://269b3b45e08bcd1a.mokky.dev/favorites`, obj)
       console.log(data)
       item.isFavorite = true
+      item.favoriteId = data.id
     } else {
       await axios.delete(`https://269b3b45e08bcd1a.mokky.dev/favorites/${item.favoriteId}`)
       item.isFavorite = false
