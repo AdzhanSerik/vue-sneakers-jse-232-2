@@ -13,7 +13,7 @@ const onClickAdd = () => {
 </script>
 
 <template>
-  <div class="p-10 grid grid-cols-4 gap-5">
+  <div class="grid grid-cols-4 gap-5">
     <Sneaker
       v-for="item in items"
       :key="item.id"
