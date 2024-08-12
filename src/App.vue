@@ -1,7 +1,6 @@
 <script setup>
 import Header from './components/HeaderComponent.vue'
 import Drawer from './components/DrawerComponent.vue'
-import Home from './pages/HomeComponent.vue'
 
 import { ref, provide } from 'vue'
 
@@ -17,7 +16,7 @@ provide('targetDrawer', targetDrawer)
   <div class="bg-white m-20 shadow-xl rounded-xl">
     <Header :targetDrawer="targetDrawer" />
     <div class="p-10">
-      <Home />
+      <router-view></router-view>
     </div>
   </div>
 </template>
