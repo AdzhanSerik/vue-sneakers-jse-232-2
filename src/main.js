@@ -1,11 +1,13 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from './pages/HomeComponent.vue'
 import Favorites from './pages/FavoriteComponent.vue'
+
 
 const routes = [
     { path: '/', name: 'home', component: Home },
@@ -18,6 +20,6 @@ const router = createRouter({
 })
 
 const app = createApp(App)
-
+app.use(autoAnimatePlugin)
 app.use(router)
 app.mount('#app')
